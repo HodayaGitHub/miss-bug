@@ -14,11 +14,11 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-app.get('/api/bug/', (req, res) => {
+app.get('/api/bug', (req, res) => {
     const filterBy = {
         txt: req.query.txt || '',
-        severity: req.query.severity || 0,
-        pageIdx: req.query.pageIdx,
+        severity: +req.query.severity || 0,
+        pageIdx: +req.query.pageIdx,
         sortBy: req.query.sortBy,
         sortDir: req.query.sortDir || 'ascending',
     }
@@ -34,12 +34,12 @@ app.get('/api/bug/', (req, res) => {
 })
 
 
-app.post('/api/bug/', (req, res) => {
+app.post('/api/bug', (req, res) => {
     const bugToSave = {
-        title: req.query.title,
-        severity: +req.query.severity,
-        description: req.query.desc,
-        _id: req.query._id,
+        title: req.body.title,
+        severity: +req.body.severity,
+        description: req.body.desc,
+        _id: req.body._id,
     }
 
     bugService.save(bugToSave)
@@ -51,7 +51,7 @@ app.post('/api/bug/', (req, res) => {
 
 
 // Edit bug (UPDATE)
-app.put('/api/car', (req, res) => {
+app.put('/api/bug', (req, res) => {
     const bugToSave = {
         title: req.body.title,
         severity: +req.body.severity,
@@ -62,7 +62,6 @@ app.put('/api/car', (req, res) => {
     bugService.save(bugToSave)
         .then(bug => res.send(bug))
         .catch((err) => {
-            loggerService.error('Cannot save bug', err)
             res.status(400).send('Cannot save bug')
         })
 })

@@ -7,7 +7,7 @@ export const bugServiceFront = {
     getEmptyBug,
 }
 
-const BASE_URL = '/api/bug/'
+const BASE_URL = '/api/bug'
 
 function getDefaultFilter() {
     return { txt: '', severity: '', }
@@ -23,17 +23,12 @@ function query(filterBy) {
 }
 
 function get(bugId) {
-    return axios.get(BASE_URL + bugId).then(res => res.data)
+    return axios.get(`${BASE_URL}/${bugId}`).then(res => res.data)
 }
 
 
-
-// function getById(bugId) {
-//     return axios.get(BASE_URL + bugId).then(res => res.data)
-// }
-
 function remove(bugId) {
-    return axios.delete(BASE_URL + bugId).then(res => res.data) 
+    return axios.delete(`${BASE_URL}/${bugId}`).then(res => res.data) 
 }
 
 function save(bug) {

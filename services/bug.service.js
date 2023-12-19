@@ -25,7 +25,7 @@ function query(filterBy) {
         bugsToReturn = bugsToReturn.filter(bug => bug.severity >= filterBy.severity)
     }
 
-    if (filterBy.pageIdx !== undefined) {
+    if (!isNaN(filterBy.pageIdx)) {
         const startIdx = filterBy.pageIdx * PAGE_SIZE
         bugsToReturn = bugsToReturn.slice(startIdx, startIdx + PAGE_SIZE)
     }
@@ -45,11 +45,7 @@ function query(filterBy) {
         });
     }
 
-    if (filterBy.pageIdx !== undefined) {
-        const startIdx = filterBy.pageIdx * PAGE_SIZE
-        bugsToReturn = bugsToReturn.slice(startIdx, startIdx + PAGE_SIZE)
-    }
-    return Promise.resolve(bugs)
+    return Promise.resolve(bugsToReturn)
 }
 
 

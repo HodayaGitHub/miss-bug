@@ -1,31 +1,17 @@
 [
   {
-    "severity": null,
+    "severity": 8,
     "_id": "8g06N"
   },
   {
     "title": "testw",
-    "severity": 4,
-    "description": "undefined",
-    "_id": "6n2iY",
-    "createdAt": 1542107359454,
-    "labels": [
-      "critical",
-      "need-CR",
-      "dev-branch"
-    ]
+    "severity": 3,
+    "_id": "6n2iY"
   },
   {
     "title": "test",
-    "severity": 8,
-    "description": "undefined",
-    "_id": "ygR9I",
-    "createdAt": 1542107359454,
-    "labels": [
-      "critical",
-      "need-CR",
-      "dev-branch"
-    ]
+    "severity": 4,
+    "_id": "ygR9I"
   },
   {
     "title": "NewBug22222",

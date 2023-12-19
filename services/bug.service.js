@@ -3,7 +3,7 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import fs from 'fs'
 
-const STORAGE_KEY = 'bugDB'
+const PAGE_SIZE = 3
 
 export const bugService = {
     query,
@@ -49,7 +49,6 @@ function query(filterBy) {
         const startIdx = filterBy.pageIdx * PAGE_SIZE
         bugsToReturn = bugsToReturn.slice(startIdx, startIdx + PAGE_SIZE)
     }
-
     return Promise.resolve(bugs)
 }
 

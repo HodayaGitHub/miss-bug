@@ -2,6 +2,7 @@ import { bugServiceFront } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
 import { BugFilter } from './BugFilter.jsx'
+// import { bugService } from '../../services/bug.service.js'
 
 const { useState, useEffect } = React
 
@@ -9,24 +10,49 @@ export function BugIndex() {
     const [bugs, setBugs] = useState(null)
     const [filterBy, setFilterBy] = useState(bugServiceFront.getDefaultFilter())
 
-
     useEffect(() => {
         loadBugs()
+        return () => {
+            console.log('Bye Bye')
+        }
     }, [filterBy])
 
     function loadBugs() {
-        // bugServiceFront.query().then(setBugs)
         bugServiceFront.query(filterBy)
-        .then(bugs => setBugs(bugs))
-        .catch(err => console.log('err:', err))
+            .then(bugs => setBugs(bugs))
+            .catch(err => console.log('err:', err))
     }
 
 
     function onSetFilter(filterBy) {
-        // setFilterBy(filterBy)
-        setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
-
+        setFilterBy(prevFilter => ({
+            ...prevFilter,
+            ...filterBy,
+            pageIdx: isUndefined(prevFilter.pageIdx) ? undefined : 0
+        }))
     }
+
+    function isUndefined(value) {
+        return value === undefined
+    }
+    function onChangePageIdx(diff) {
+        if (isUndefined(filterBy.pageIdx)) return
+        setFilterBy(prevFilter => {
+            let newPageIdx = prevFilter.pageIdx + diff
+            if (newPageIdx < 0) newPageIdx = 0
+            return { ...prevFilter, pageIdx: newPageIdx }
+        })
+    }
+
+    function onTogglePagination() {
+        setFilterBy(prevFilter => {
+            return {
+                ...prevFilter,
+                pageIdx: isUndefined(prevFilter.pageIdx) ? 0 : undefined
+            }
+        })
+    }
+
 
     function onRemoveBug(bugId) {
         bugServiceFront
@@ -82,15 +108,22 @@ export function BugIndex() {
             })
     }
 
-    const { txt, severity } = filterBy
+    const { txt, severity, pageIdx } = filterBy
 
     return (
         <main>
             <h3>Bugs App</h3>
             <main>
-            <BugFilter filterBy={{ txt, severity }} onSetFilter={onSetFilter} />
-                <button onClick={onAddBug}>Add Bug ⛐</button>
+                <BugFilter filterBy={{ txt, severity }} onSetFilter={onSetFilter} />
+                <button onClick={onAddBug}>Add Bug 🐛</button>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+                <section className="pagination">
+                <button onClick={() => onChangePageIdx(1)}>+</button>
+                {pageIdx + 1 || 'No Pagination'}
+                <button onClick={() => onChangePageIdx(-1)} >-</button>
+                <button onClick={onTogglePagination}>Toggle pagination</button>
+            </section>
+
             </main>
         </main>
     )

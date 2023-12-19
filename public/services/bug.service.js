@@ -1,21 +1,20 @@
-
-import { storageService } from './async-storage.service.js'
-import { utilService } from './util.service.js'
-
-const STORAGE_KEY = 'bugDB'
-const BASE_URL = '/api/bug/'
-
 export const bugServiceFront = {
     query,
-    getById,
+    get,
     save,
     remove,
     getDefaultFilter,
+    getEmptyBug,
 }
 
+const BASE_URL = '/api/bug/'
 
 function getDefaultFilter() {
     return { txt: '', severity: '', }
+}
+
+function getEmptyBug(title = '', severity = '') {
+    return { title, severity }
 }
 
 
@@ -23,14 +22,18 @@ function query(filterBy) {
     return axios.get(BASE_URL, { params: filterBy }).then(res => res.data)
 }
 
-
-function getById(bugId) {
+function get(bugId) {
     return axios.get(BASE_URL + bugId).then(res => res.data)
 }
 
 
+
+// function getById(bugId) {
+//     return axios.get(BASE_URL + bugId).then(res => res.data)
+// }
+
 function remove(bugId) {
-    return axios.get(BASE_URL + bugId + '/remove')
+    return axios.delete(BASE_URL + bugId).then(res => res.data) 
 }
 
 function save(bug) {

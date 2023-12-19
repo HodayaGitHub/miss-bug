@@ -1,34 +1,54 @@
 [
   {
+    "severity": null,
+    "_id": "8g06N"
+  },
+  {
     "title": "testw",
     "severity": 4,
     "description": "undefined",
     "_id": "6n2iY",
-    "createdAt" : 1542107359454,
-    "labels" : ["critical", "need-CR", "dev-branch"]
+    "createdAt": 1542107359454,
+    "labels": [
+      "critical",
+      "need-CR",
+      "dev-branch"
+    ]
   },
   {
     "title": "test",
     "severity": 8,
     "description": "undefined",
     "_id": "ygR9I",
-    "createdAt" : 1542107359454,
-    "labels" : ["critical", "need-CR", "dev-branch"]
+    "createdAt": 1542107359454,
+    "labels": [
+      "critical",
+      "need-CR",
+      "dev-branch"
+    ]
   },
   {
     "title": "NewBug22222",
     "severity": 5,
     "description": "problem when clicking Save",
     "_id": "mQRxY",
-    "createdAt" : 1542107359454,
-    "labels" : ["critical", "need-CR", "dev-branch"]
+    "createdAt": 1542107359454,
+    "labels": [
+      "critical",
+      "need-CR",
+      "dev-branch"
+    ]
   },
   {
     "title": "Infinite Loop Detected",
     "severity": 2,
     "description": "problem when clicking Save",
     "_id": "1NF1N1T3",
-    "createdAt" : 1542107359454,
-    "labels" : ["critical", "need-CR", "dev-branch"]
+    "createdAt": 1542107359454,
+    "labels": [
+      "critical",
+      "need-CR",
+      "dev-branch"
+    ]
   }
 ]

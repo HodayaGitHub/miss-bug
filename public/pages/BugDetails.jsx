@@ -11,7 +11,7 @@ export function BugDetails() {
     const { bugId } = useParams()
 
     useEffect(() => {
-        bugServiceFront.getById(bugId)
+        bugServiceFront.get(bugId)
             .then(bug => {
                 setBug(bug)
             })

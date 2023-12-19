@@ -1,10 +1,11 @@
+import { bugServiceFront } from '../services/bug.service.js'
 
 const { useState, useEffect } = React
 
 
 export function BugFilter({ filterBy, onSetFilter }) {
 
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
+    const [filterByToEdit, setFilterByToEdit] = useState(bugServiceFront.getEmptyBug())
 
     useEffect(() => {
         onSetFilter(filterByToEdit)

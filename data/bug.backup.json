@@ -1,0 +1,42 @@
+[
+    {
+      "_id": "def456",
+      "title": "Error in Dashboard",
+      "severity": 3,
+      "createdAt": 1703094256960,
+      "creator": {
+        "_id": "u101",
+        "fullname": "Puki Ja"
+      }
+    },
+    {
+      "_id": "jkl012",
+      "title": "Missing Features",
+      "severity": 2,
+      "createdAt": 1703094256960,
+      "creator": {
+        "_id": "u101",
+        "fullname": "Puki Ja"
+      }
+    },
+    {
+      "_id": "mno345",
+      "title": "Performance Degradation",
+      "severity": 2,
+      "createdAt": 1703094256960,
+      "creator": {
+        "_id": "u102",
+        "fullname": "Muki Ba"
+      }
+    },
+    {
+      "_id": "ghi789",
+      "title": "Error in Dashboard",
+      "severity": 3,
+      "createdAt": 1703094256960,
+      "creator": {
+        "_id": "u103",
+        "fullname": "Kiki Ki"
+      }
+    }
+  ]

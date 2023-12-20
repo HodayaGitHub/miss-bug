@@ -60,11 +60,13 @@ export function UserDetails() {
 
     return (
         <section>
+          {/* {bugs && ( */}
             <BugList
                 bugs={bugs}
                 onRemoveBug={onRemoveBug}
                 onEditBug={onEditBug}
             />
+        {/* )} */}
         </section>
     )
 }

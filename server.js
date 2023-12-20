@@ -25,7 +25,7 @@ app.get('/api/bug', (req, res) => {
     }
 
     const filterByUser = req.query.filterByUser
-    
+
 
     const loginToken = req.cookies.loginToken
     if (!loginToken) {
@@ -33,10 +33,10 @@ app.get('/api/bug', (req, res) => {
         return
     }
     const user = userService.validateToken(loginToken)
-    console.log(user)
+    // console.log(user)
     bugService.query(filterBy)
         .then(bugs => {
-            if(filterByUser){
+            if (filterByUser) {
                 bugs = bugs.filter(bug => user._id === bug.creator._id)
             }
             res.send(bugs)
@@ -49,12 +49,12 @@ app.get('/api/bug', (req, res) => {
 
 
 app.post('/api/bug', (req, res) => {
-
     const loginToken = req.cookies.loginToken
     if (!loginToken) {
         res.status(403).send('Unauthorized')
         return
     }
+
     const user = userService.validateToken(loginToken)
 
     const bugToSave = {
@@ -81,26 +81,60 @@ app.post('/api/bug', (req, res) => {
 
 // Edit bug (UPDATE)
 app.put('/api/bug', (req, res) => {
-    const bugToSave = {
+    const loginToken = req.cookies.loginToken
+    if (!loginToken) {
+        res.status(403).send('Unauthorized')
+        return
+    }
+    const user = userService.validateToken(loginToken)
+    const bugId = req.body._id
+
+    const updatedFields = {
         title: req.body.title,
         severity: +req.body.severity,
-        description: req.body.desc,
-        _id: req.body._id,
+        description: req.body.description,
     }
 
-    bugService.save(bugToSave)
-        .then(bug => res.send(bug))
-        .catch((err) => {
-            res.status(400).send('Cannot save bug')
+    console.log('user', user._id)
+    console.log('usertosave', req.body.creator._id)
+
+    bugService.getById(bugId)
+        .then(existingBug => {
+            if (!existingBug) {
+                res.status(404).send('Bug not found');
+            }
+
+            if (user._id === req.body.creator._id) {
+                const updatedBug = { ...existingBug, ...updatedFields }
+                return bugService.save(updatedBug)
+            } else {
+                res.status(403).send('Unauthorized')
+
+            }
         })
+        .then(updatedBug => res.send(updatedBug))
+        .catch((err) => {
+                        res.status(400).send('Cannot save bug')
+                    })
 })
+
+// if (user._id === req.body.creator._id) {
+//     bugService.save(bugToSave)
+//         .then(bug => res.send(bug))
+//         .catch((err) => {
+//             res.status(400).send('Cannot save bug')
+//         })
+// } else {
+//     res.status(403).send('Unauthorized')
+// }
+// })
 
 
 app.get('/api/bug/:id', (req, res) => {
     const bugId = req.params.id
     let visitedBugs = req.cookies.visitedBugs || []
 
-    console.log(visitedBugs)
+    // console.log(visitedBugs)
 
     if (visitedBugs.length >= MAX_BUGS_ALLOWED) {
         return res.status(401).send('Wait for a bit')

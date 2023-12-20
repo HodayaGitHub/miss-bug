@@ -24,8 +24,20 @@ app.get('/api/bug', (req, res) => {
         sortDir: req.query.sortDir || 'ascending',
     }
 
+    const loginToken = req.cookies.loginToken
+    if (!loginToken) {
+        res.status(403).send('Unauthorized')
+        return
+    }
+    const user = userService.validateToken(loginToken)
+    console.log(user)
     bugService.query(filterBy)
         .then(bugs => {
+            if (!user.isAdmin) {
+                bugs = bugs.filter(bug => user._id === bug.creator._id)
+                console.log('filter', bugs.length)
+
+            }
             res.send(bugs)
         })
         .catch(err => {
@@ -36,11 +48,26 @@ app.get('/api/bug', (req, res) => {
 
 
 app.post('/api/bug', (req, res) => {
+
+    const loginToken = req.cookies.loginToken
+    if (!loginToken) {
+        res.status(403).send('Unauthorized')
+        return
+    }
+    const user = userService.validateToken(loginToken)
+
     const bugToSave = {
         title: req.body.title,
         severity: +req.body.severity,
         description: req.body.desc,
         _id: req.body._id,
+        createdAt: Date.now(),
+        lables: [],
+        creator: {
+            _id: user._id,
+            fullname: user.fullname
+        }
+
     }
 
     bugService.save(bugToSave)
@@ -68,8 +95,6 @@ app.put('/api/bug', (req, res) => {
 })
 
 
-
-
 app.get('/api/bug/:id', (req, res) => {
     const bugId = req.params.id
     let visitedBugs = req.cookies.visitedBugs || []
@@ -93,7 +118,6 @@ app.get('/api/bug/:id', (req, res) => {
         })
 
 })
-
 
 
 app.delete('/api/bug/:bugId', (req, res) => {
@@ -130,6 +154,10 @@ app.post('/api/auth/login', (req, res) => {
                 res.status(401).send('Invalid Credentials')
             }
         })
+        .catch(error => {
+            console.error('Login failed:', error)
+            res.status(401).send('Invalid Credentials')
+        })
 })
 
 app.post('/api/auth/signup', (req, res) => {
@@ -150,8 +178,6 @@ app.post('/api/auth/logout', (req, res) => {
     res.clearCookie('loginToken')
     res.send('logged-out!')
 })
-
-
 
 app.get('/api/user/:id', (req, res) => {
     const userId = req.params.id

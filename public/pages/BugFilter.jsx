@@ -5,7 +5,7 @@ const { useState, useEffect } = React
 
 export function BugFilter({ filterBy, onSetFilter, onSetSortDir, onSetSortBy, sortBy, sortDir }) {
 
-    const [filterByToEdit, setFilterByToEdit] = useState(bugServiceFront.getEmptyBug())
+    const [filterByToEdit, setFilterByToEdit] = useState(bugServiceFront.getDefaultFilter())
 
     useEffect(() => {
         onSetFilter(filterByToEdit)

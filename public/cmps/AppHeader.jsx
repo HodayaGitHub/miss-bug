@@ -1,15 +1,16 @@
 const { NavLink, Link } = ReactRouterDOM
 // const {useEffect} = React
 const { useState } = React
+const { useNavigate } = ReactRouter
 
 import { userService } from '../services/user.service.js'
 import { LoginSignup } from './LoginSignUp.jsx'
 import { UserMsg } from './UserMsg.jsx'
 
 export function AppHeader() {
-  // useEffect(() => {
-  //   // component did mount when dependancy array is empty
-  // }, [])
+ 
+  const navigate = useNavigate()
+
 
 
   const [user, setUser] = useState(userService.getLoggedinUser())
@@ -26,8 +27,9 @@ export function AppHeader() {
 
   function onSetUser(user) {
     setUser(user)
-    navigate('/')
+    navigate(`/user/${user._id}`)
   }
+
 
 
   return (
@@ -52,6 +54,6 @@ export function AppHeader() {
         </section>
       )}
     </header>
-    
+
   )
 }

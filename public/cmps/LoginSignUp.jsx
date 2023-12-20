@@ -16,7 +16,7 @@ export function LoginSignup({ onSetUser }) {
         userService.login(credentials)
             .then(onSetUser)
             .then(() => { showSuccessMsg('Logged in successfully') })
-            .catch((err) => { showErrorMsg('Oops try again') })
+            .catch((err) => { console.log(err); showErrorMsg('Oops try again') })
     }
 
     function signup(credentials) {

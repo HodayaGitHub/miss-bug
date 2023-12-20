@@ -42,12 +42,11 @@ function query(filterBy) {
             } else {
                 return 0
             }
-        });
+        })
     }
 
     return Promise.resolve(bugsToReturn)
 }
-
 
 function save(bug) {
     if (bug._id) {
@@ -59,7 +58,6 @@ function save(bug) {
     }
     return _saveBugsToJson().then(() => bug)
 }
-
 
 function _saveBugsToJson() {
     return new Promise((resolve, reject) => {
@@ -74,12 +72,10 @@ function _saveBugsToJson() {
     })
 }
 
-
 function remove(bugId){
 const bugIdx = bugs.findIndex(bug => bug._id === bugId)
 bugs.splice(bugIdx, 1)
 return _saveBugsToJson()
-
 }
 
 function getById(bugId) {

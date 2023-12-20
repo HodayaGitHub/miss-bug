@@ -1,23 +1,17 @@
 [
   {
-    "severity": 8,
-    "_id": "8g06N"
+    "title": "new",
+    "description": "very new",
+    "severity": 200,
+    "labels": [],
+    "createdAt": 1703071883992,
+    "_id": "8P0Cq"
   },
   {
-    "title": "testw",
-    "severity": 3,
-    "_id": "6n2iY"
-  },
-  {
-    "title": "test",
-    "severity": 4,
-    "_id": "ygR9I"
-  },
-  {
-    "title": "NewBug22222",
-    "severity": 5,
+    "_id": "abc123",
+    "title": "Cannot save a Car",
     "description": "problem when clicking Save",
-    "_id": "mQRxY",
+    "severity": 9,
     "createdAt": 1542107359454,
     "labels": [
       "critical",
@@ -26,15 +20,41 @@
     ]
   },
   {
-    "title": "Infinite Loop Detected",
-    "severity": 2,
-    "description": "problem when clicking Save",
-    "_id": "1NF1N1T3",
-    "createdAt": 1542107359454,
+    "_id": "def456",
+    "title": "Error in Dashboard",
+    "description": "dashboard not loading",
+    "severity": 300,
+    "createdAt": 1542107360000,
     "labels": [
-      "critical",
-      "need-CR",
+      "critical"
+    ]
+  },
+  {
+    "_id": "ghi789",
+    "title": "Login Issue",
+    "description": "unable to login",
+    "severity": 1,
+    "createdAt": 1542107361000,
+    "labels": [
       "dev-branch"
+    ]
+  },
+  {
+    "_id": "jkl012",
+    "title": "Missing Features",
+    "description": "features not available",
+    "severity": 2,
+    "createdAt": 1542107362000,
+    "labels": []
+  },
+  {
+    "_id": "mno345",
+    "title": "Performance Degradation",
+    "description": "system slowdowns",
+    "severity": 3,
+    "createdAt": 1542107363000,
+    "labels": [
+      "need-CR"
     ]
   }
 ]

@@ -9,13 +9,15 @@ const { useState, useEffect } = React
 export function BugIndex() {
     const [bugs, setBugs] = useState(null)
     const [filterBy, setFilterBy] = useState(bugServiceFront.getDefaultFilter())
+    const [sortBy, setSortBy] = useState('')
+    const [sortDir, setSortDir] = useState(null)
 
     useEffect(() => {
         loadBugs()
         return () => {
             console.log('Bye Bye')
         }
-    }, [filterBy])
+    }, [filterBy, sortBy, sortDir])
 
     function loadBugs() {
         bugServiceFront.query(filterBy)
@@ -31,6 +33,20 @@ export function BugIndex() {
             pageIdx: isUndefined(prevFilter.pageIdx) ? undefined : 0
         }))
     }
+
+
+    function onSetFilter(filterBy) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
+    }
+
+    function onSetSortBy(sortKey) {
+        setSortBy(sortKey)
+    }
+
+    function onSetSortDir(dir) {
+        setSortDir(dir)
+    }
+
 
     function isUndefined(value) {
         return value === undefined
@@ -108,21 +124,23 @@ export function BugIndex() {
             })
     }
 
-    const { txt, severity, pageIdx } = filterBy
+    const { txt, severity, pageIdx, label } = filterBy
 
     return (
         <main>
             <h3>Bugs App</h3>
             <main>
-                <BugFilter filterBy={{ txt, severity }} onSetFilter={onSetFilter} />
+                <BugFilter filterBy={{ txt, severity, label }} onSetFilter={onSetFilter} onSetSortBy={onSetSortBy} onSetSortDir={onSetSortDir} sortBy={sortBy} sortDir={sortDir} />
+
+
                 <button onClick={onAddBug}>Add Bug 🐛</button>
                 <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
                 <section className="pagination">
-                <button onClick={() => onChangePageIdx(1)}>+</button>
-                {pageIdx + 1 || 'No Pagination'}
-                <button onClick={() => onChangePageIdx(-1)} >-</button>
-                <button onClick={onTogglePagination}>Toggle pagination</button>
-            </section>
+                    <button onClick={() => onChangePageIdx(1)}>+</button>
+                    {pageIdx + 1 || 'No Pagination'}
+                    <button onClick={() => onChangePageIdx(-1)} >-</button>
+                    <button onClick={onTogglePagination}>Toggle pagination</button>
+                </section>
 
             </main>
         </main>

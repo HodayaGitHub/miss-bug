@@ -1,5 +1,5 @@
 import { bugServiceFront } from '../services/bug.service.js'
-import { BugList } from "../cmps/BugList";
+import { BugList } from "../cmps/BugList"
 // import { userService } from "../services/user.service";
 const { useState, useEffect } = React
 
@@ -60,13 +60,13 @@ export function UserDetails() {
 
     return (
         <section>
-          {/* {bugs && ( */}
+          {bugs && (
             <BugList
                 bugs={bugs}
                 onRemoveBug={onRemoveBug}
                 onEditBug={onEditBug}
             />
-        {/* )} */}
+         )} 
         </section>
     )
 }

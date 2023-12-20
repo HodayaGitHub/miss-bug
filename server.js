@@ -101,7 +101,7 @@ app.put('/api/bug', (req, res) => {
     bugService.getById(bugId)
         .then(existingBug => {
             if (!existingBug) {
-                res.status(404).send('Bug not found');
+                res.status(404).send('Bug not found')
             }
 
             if (user._id === req.body.creator._id) {
@@ -114,20 +114,10 @@ app.put('/api/bug', (req, res) => {
         })
         .then(updatedBug => res.send(updatedBug))
         .catch((err) => {
-                        res.status(400).send('Cannot save bug')
-                    })
+            res.status(400).send('Cannot save bug')
+        })
 })
 
-// if (user._id === req.body.creator._id) {
-//     bugService.save(bugToSave)
-//         .then(bug => res.send(bug))
-//         .catch((err) => {
-//             res.status(400).send('Cannot save bug')
-//         })
-// } else {
-//     res.status(403).send('Unauthorized')
-// }
-// })
 
 
 app.get('/api/bug/:id', (req, res) => {

@@ -2,6 +2,7 @@ import { bugServiceFront } from '../services/bug.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { BugList } from '../cmps/BugList.jsx'
 import { BugFilter } from './BugFilter.jsx'
+import { UserDetails } from './UserDetails.jsx'
 // import { bugService } from '../../services/bug.service.js'
 
 const { useState, useEffect } = React
@@ -34,10 +35,9 @@ export function BugIndex() {
         }))
     }
 
-
-    function onSetFilter(filterBy) {
-        setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
-    }
+    // function onSetFilter(filterBy) {
+    //     setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
+    // }
 
     function onSetSortBy(sortKey) {
         setSortBy(sortKey)
@@ -51,6 +51,7 @@ export function BugIndex() {
     function isUndefined(value) {
         return value === undefined
     }
+
     function onChangePageIdx(diff) {
         if (isUndefined(filterBy.pageIdx)) return
         setFilterBy(prevFilter => {
@@ -130,11 +131,21 @@ export function BugIndex() {
         <main>
             <h3>Bugs App</h3>
             <main>
-                <BugFilter filterBy={{ txt, severity, label }} onSetFilter={onSetFilter} onSetSortBy={onSetSortBy} onSetSortDir={onSetSortDir} sortBy={sortBy} sortDir={sortDir} />
+                <BugFilter filterBy={{ txt, severity, label }}
+                    onSetFilter={onSetFilter}
+                    onSetSortBy={onSetSortBy}
+                    onSetSortDir={onSetSortDir}
+                    sortBy={sortBy}
+                    sortDir={sortDir} />
 
 
                 <button onClick={onAddBug}>Add Bug 🐛</button>
-                <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
+               
+                <BugList
+                    bugs={bugs}
+                    onRemoveBug={onRemoveBug}
+                    onEditBug={onEditBug}/>
+
                 <section className="pagination">
                     <button onClick={() => onChangePageIdx(1)}>+</button>
                     {pageIdx + 1 || 'No Pagination'}

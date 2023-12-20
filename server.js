@@ -24,6 +24,9 @@ app.get('/api/bug', (req, res) => {
         sortDir: req.query.sortDir || 'ascending',
     }
 
+    const filterByUser = req.query.filterByUser
+    
+
     const loginToken = req.cookies.loginToken
     if (!loginToken) {
         res.status(403).send('Unauthorized')
@@ -33,10 +36,8 @@ app.get('/api/bug', (req, res) => {
     console.log(user)
     bugService.query(filterBy)
         .then(bugs => {
-            if (!user.isAdmin) {
+            if(filterByUser){
                 bugs = bugs.filter(bug => user._id === bug.creator._id)
-                console.log('filter', bugs.length)
-
             }
             res.send(bugs)
         })
@@ -179,16 +180,20 @@ app.post('/api/auth/logout', (req, res) => {
     res.send('logged-out!')
 })
 
-app.get('/api/user/:id', (req, res) => {
-    const userId = req.params.id
+app.get('/api/get-user', (req, res) => {
+    const loginToken = req.cookies.loginToken
 
-    userService.getById(userId)
-        .then(user => res.send(user))
-        .catch(err => {
-            res.status(400).send(`${err}, cannot get user`)
-        })
+    if (!loginToken) {
+        res.status(403).send('Unauthorized')
+        return
+    }
 
+    const user = userService.validateToken(loginToken)
+    res.send(user)
 })
+
+
+
 
 
 

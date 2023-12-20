@@ -27,7 +27,7 @@ export function AppHeader() {
 
   function onSetUser(user) {
     setUser(user)
-    navigate(`/user/${user._id}`)
+    navigate(`/`)
   }
 
 
@@ -44,7 +44,7 @@ export function AppHeader() {
         <section className="user-login">
           <h1>Hello {user.fullname}</h1>
           <span>
-            <Link to={`/user/${user._id}`}>Navigate to your page</Link>
+            <Link to={`/user`}>Navigate to your page</Link>
           </span>
           <button onClick={onLogout}>Logout</button>
         </ section >

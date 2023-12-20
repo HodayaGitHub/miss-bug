@@ -18,8 +18,8 @@ function getEmptyBug(title = '', severity = '') {
 }
 
 
-function query(filterBy) {
-    return axios.get(BASE_URL, { params: filterBy }).then(res => res.data)
+function query(params) {
+    return axios.get(BASE_URL, { params: params }).then(res => res.data)
 }
 
 function get(bugId) {

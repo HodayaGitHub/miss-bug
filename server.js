@@ -151,6 +151,21 @@ app.post('/api/auth/logout', (req, res) => {
     res.send('logged-out!')
 })
 
+
+
+app.get('/api/user/:id', (req, res) => {
+    const userId = req.params.id
+
+    userService.getById(userId)
+        .then(user => res.send(user))
+        .catch(err => {
+            res.status(400).send(`${err}, cannot get user`)
+        })
+
+})
+
+
+
 // app.get('/**', (req, res) => {
 //     res.sendFile(path.resolve('public/index.html'))
 // })

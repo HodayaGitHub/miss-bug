@@ -84,3 +84,12 @@ nav a:hover {
 .bug-preview span {
     color: gold;
 }
+
+.user-login {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-login button {
+    width: fit-content;
+}
